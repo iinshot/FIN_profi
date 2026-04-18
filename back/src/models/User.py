@@ -5,7 +5,11 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.associationproxy import association_proxy
 
-from . import Base, UserModule, UserArticle, UserQuiz, UserQuizAnswer
+from . import Base
+from .UserModule import UserModule
+from .UserArticle import UserArticle
+from .UserQuiz import UserQuiz
+from .UserQuizAnswer import UserQuizAnswer
 
 class User(Base):
     __tablename__ = "users"

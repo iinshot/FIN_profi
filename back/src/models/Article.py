@@ -7,7 +7,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy import JSON
 
-from . import Base, UserArticle
+from . import Base
+from .UserArticle import UserArticle
 
 class Article(Base):
     __tablename__ = "articles"

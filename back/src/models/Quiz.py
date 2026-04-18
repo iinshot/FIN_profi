@@ -5,7 +5,10 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.associationproxy import association_proxy
 
-from . import Base, QuizQuestion, UserQuiz, UserQuizAnswer
+from . import Base
+from .QuizQuestion import QuizQuestion
+from .UserQuiz import UserQuiz
+from .UserQuizAnswer import UserQuizAnswer
 
 class Quiz(Base):
     __tablename__ = "quizes"
@@ -20,7 +23,7 @@ class Quiz(Base):
     )
     
     quizes_questions: Mapped[List["QuizQuestion"]] = relationship("QuizQuestion", back_populates='quiz')
-    questions = association_proxy('questions_quizes', 'question', creator=lambda question: QuizQuestion(question=question))
+    questions = association_proxy('quizes_questions', 'question', creator=lambda question: QuizQuestion(question=question))
     users_quizes: Mapped[List["UserQuiz"]] = relationship("UserQuiz", back_populates='quiz')
     users = association_proxy('users_quizes', 'user', creator=lambda user: UserQuiz(user=user))
     users_quizes_answers: Mapped[List["UserQuizAnswer"]] = relationship("UserQuizAnswer", back_populates='quiz')

@@ -6,7 +6,8 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 import enum
 
-from . import Base, UserQuizAnswer
+from . import Base
+from .UserQuizAnswer import UserQuizAnswer
 
 class Answer(Base):
     __tablename__ = "answers"
