@@ -10,7 +10,7 @@ from main import app
 from models import Base, User, Module, Question, Article, Quiz, QuizQuestion, Answer
 from models import UserModule, UserArticle, UserQuiz, UserQuizAnswer
 from models.Question import QuestionType
-from crud import answer
+from crud import answer, article
 
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
 
@@ -89,3 +89,13 @@ async def test_answer(db_session, test_question):
         is_correct=True
     )
     return ans
+
+@pytest.fixture
+async def test_article(db_session, test_module):
+    art = await article.create_article(
+        db_session,
+        name="Test Article",
+        content={"test": "content"},
+        id_module=test_module.id_module
+    )
+    return art
