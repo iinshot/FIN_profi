@@ -23,7 +23,7 @@ class TestQuizCRUD:
         assert data.name == test_quiz.name
 
     @pytest.mark.asyncio
-    async def test_get_all_quizes(self, db_session):
+    async def test_get_all_quizzes(self, db_session):
         """Тест получения всех тестов"""
         await quiz.create_quiz(
             session=db_session,
@@ -35,11 +35,11 @@ class TestQuizCRUD:
             name="Second Quiz"
         )
 
-        quizes = await quiz.get_all_quizes(db_session)
+        quizzes = await quiz.get_all_quizzes(db_session)
 
-        assert len(quizes) >= 2
-        assert any(q.name == "First Quiz" for q in quizes)
-        assert any(q.name == "Second Quiz" for q in quizes)
+        assert len(quizzes) >= 2
+        assert any(q.name == "First Quiz" for q in quizzes)
+        assert any(q.name == "Second Quiz" for q in quizzes)
 
     @pytest.mark.asyncio
     async def test_update_quiz(self, db_session, test_quiz):
