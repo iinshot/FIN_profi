@@ -5,9 +5,6 @@ engine = create_async_engine('postgresql+asyncpg://postgres:postgres@db/dummies_
 
 SessionLocal = async_sessionmaker(autocommit=False, autoflush=False, bind=engine, expire_on_commit=False)
 
-def get_db() -> AsyncSession:
-    db = SessionLocal()
-    try:
+async def get_db() -> AsyncSession:
+    async with SessionLocal() as db:
         yield db
-    finally:
-        db.close()

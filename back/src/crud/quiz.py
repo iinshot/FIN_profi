@@ -23,7 +23,7 @@ async def get_quiz(
     result = await session.execute(query)
     return result.scalar_one_or_none()
 
-async def get_all_quizes(
+async def get_all_quizzes(
     session: AsyncSession,
     skip: int = 0,
     limit: int = 100
