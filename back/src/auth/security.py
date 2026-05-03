@@ -6,7 +6,6 @@ import bcrypt
 from sqlalchemy.ext.asyncio import AsyncSession
 from crud.user import get_user_by_email
 from models.User import User
-from db.session import get_db
 
 
 load_dotenv()

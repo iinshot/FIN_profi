@@ -16,16 +16,16 @@ class TestAuth:
     async def test_access_token(self, db_session):
         user = await create_user(db_session, "Test2", "test2@gmail.com", "test2")
         token = await create_access_token({"sub":user.email, "id_user": user.id_user}, timedelta(minutes=1))
-        result = await get_current_user(token)
+        result = await get_current_user(token, db_session)
 
-        assert result["email"] == user.email
-        assert result["id_user"] == user.id_user
+        assert result.email == user.email
+        assert result.id_user == user.id_user
 
     async def test_refresh_token(self, db_session):
         user = await create_user(db_session, "Test3", "test3@gmail.com", "test3")
         token = await create_refresh_token({"sub":user.email, "id_user": user.id_user})
         new_access_token, new_refresh_token = await refresh_access_token(db_session, token)
-        result = await get_current_user(new_access_token)
+        result = await get_current_user(new_access_token, db_session)
 
-        assert result["email"] == user.email
-        assert result["id_user"] == user.id_user
+        assert result.email == user.email
+        assert result.id_user == user.id_user
