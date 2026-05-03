@@ -3,3 +3,5 @@ uvicorn
 sqlalchemy[asyncio]
 asyncpg
 bcrypt
+pyjwt[crypto]
+python-dotenv
