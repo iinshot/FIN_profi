@@ -1,0 +1,129 @@
+@use "../../constants/colors.scss" as *;
+
+section.general-quizzes {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    flex-shrink: 0;
+
+    .general-quizzes-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .expand-section-button {
+        width: 100%;
+        height: 47px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        border-radius: 30px;
+        bottom: 0;
+        left: 0;
+        color: $mid-gray;
+        background-color: $surface-white;
+        cursor: pointer;
+
+        .label {
+            margin-right: 10px;
+        }
+
+        svg {
+            fill: $mid-gray;
+            transform: scaleY(-1);
+            transition: all 0.3s ease;
+
+            &.collapsed {
+                transform: scaleY(1);
+            }
+        }
+    }
+}
+
+section.quizzes-by-module {
+    flex-direction: column;
+    gap: 28px;
+
+    .quizzes-by-module-elem {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.quiz-card {
+    padding: 24px;
+    border-radius: 30px;
+    background-color: $surface-light;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .label-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .question-label,
+        .points-label {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .question-label {
+            color: $dark-gray;
+
+            svg {
+                fill: $dark-gray;
+            }
+        }
+
+        .points-label {
+            color: $text;
+
+            svg {
+                fill: $primary-yellow;
+            }
+        }
+    }
+
+    &.dark {
+        background-color: $text;
+
+        h2 {
+            color: $surface-white;
+        }
+
+        .question-label {
+            color: $mid-gray;
+
+            svg {
+                fill: $mid-gray;
+            }
+        }
+
+        .points-label {
+            color: $mid-gray;
+        }
+    }
+
+    &-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+
+        .skeleton {
+            border-radius: 30px;
+        }
+    }
+
+    .button.disabled {
+        opacity: 0.5 !important;
+        pointer-events: none;
+    }
+}

@@ -1,0 +1,19 @@
+@use '../../constants/colors.scss' as *;
+
+.sync-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+    width: 100%;
+    border-radius: 40px;
+    border-bottom: 3px solid $surface-light;
+
+    transform-origin: bottom;
+    overflow: hidden;
+
+    .label {
+        color: $mid-gray;
+    }
+}

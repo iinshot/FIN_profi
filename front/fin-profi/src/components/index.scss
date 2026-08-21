@@ -1,0 +1,119 @@
+@use "../constants/colors.scss" as *;
+
+// Button Group
+
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+// Navigation Bar
+
+.navbar {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    margin: 0 auto;
+
+    &-container {
+        width: 300px;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 32px 0;
+        margin: 0 auto;
+        border-radius: 30px;
+        background-color: $surface-white;
+    }
+
+    .divider {
+        height: 2px;
+        width: 100%;
+        background-color: $surface-light;
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    flex: 1 {
+        direction: column;
+    }
+}
+
+// Not Found
+
+.not-found {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+
+    .map-icon {
+        background-color: $text;
+        border-radius: 50%;
+        width: 144px;
+        height: 144px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        z-index: -1;
+        top: -80px;
+        left: -80px;
+
+        >svg {
+            fill: $primary-yellow;
+        }
+    }
+
+    >span {
+        display: block;
+        font-size: 160px;
+        color: $primary-yellow;
+        position: relative;
+
+        &::before,
+        &::after {
+            content: '';
+            display: block;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        &::before {
+            width: 340px;
+            height: 340px;
+            background-color: $surface-light;
+            left: calc(50% - 170px);
+            top: calc(50% - 170px);
+            z-index: -3;
+        }
+
+        &::after {
+            width: 260px;
+            height: 260px;
+            background-color: rgba($color: $primary-yellow, $alpha: 0.1);
+            left: calc(50% - 130px);
+            top: calc(50% - 130px);
+            z-index: -2;
+        }
+    }
+
+    h1 {
+        margin-bottom: 16px;
+    }
+
+    div.body {
+        margin-bottom: 40px;
+        color: $mid-gray;
+        width: 456px;
+        text-align: center;
+    }
+}

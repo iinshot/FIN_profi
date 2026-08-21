@@ -1,0 +1,5 @@
+export const FETCH_QUIZ_KEY = ["fetchQuiz"]
+export const START_QUIZ_MUTATION_KEY = ["startQuizMutation"]
+export const FETCH_QUESTION_KEY = ["fetchQuestion"]
+export const ANSWER_MUTATION_KEY = ["answerMutation"]
+export const COMPLETE_QUIZ_KEY = ["completeQuiz"]

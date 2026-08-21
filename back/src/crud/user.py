@@ -95,12 +95,12 @@ async def get_users_above(
 ) -> List[User]:
     """Получение пользователей с поинтами >= текущего, по убыванию"""
     query = (
-        select(User)
+        select(User.id_user, User.name, User.points)
         .where(User.points >= points)
         .order_by(User.points.desc())
     )
     result = await session.execute(query)
-    return result.scalars().all()
+    return result.mappings().all()
 
 async def get_user_progress(session: AsyncSession, id_user: int) -> dict:
     all_articles = await session.execute(select(func.count()).select_from(Article))
@@ -131,12 +131,18 @@ async def get_user_progress(session: AsyncSession, id_user: int) -> dict:
 async def get_user_activity(session: AsyncSession, id_user: int) -> list:
     articles_query = (
         select(UserArticle)
-        .where(UserArticle.id_user == id_user)
+        .where(
+            UserArticle.id_user == id_user,
+            UserArticle.is_read == True
+        )
         .options(selectinload(UserArticle.article))
     )
     quizzes_query = (
         select(UserQuiz)
-        .where(UserQuiz.id_user == id_user)
+        .where(
+            UserQuiz.id_user == id_user,
+            UserQuiz.is_completed == True
+        )
         .options(selectinload(UserQuiz.quiz))
     )
 

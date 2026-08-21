@@ -1,0 +1,1 @@
+export { fetchStatistics } from "./fetchStatistics"

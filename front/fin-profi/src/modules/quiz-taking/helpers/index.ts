@@ -1,0 +1,6 @@
+export { answerAdapter } from "./answerAdapter"
+export { buildResult } from "./buildResult"
+export { questionAdapter } from "./questionAdapter"
+export { quizAdapter } from "./quizAdapter"
+export { resultAdapter } from "./resultAdapter"
+export { resultDetailAdapter } from "./resultDetailAdapter"

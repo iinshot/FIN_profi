@@ -1,0 +1,50 @@
+@use "../../constants/colors.scss" as *;
+
+.activity {
+    min-height: max-content;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+.activity-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-radius: 20px;
+    background-color: $surface-light;
+
+    .header,
+    .details {
+        display: flex;
+        gap: 16px;
+    }
+
+    &.quiz .header>svg {
+        padding: 11px;
+        border-radius: 50%;
+        background-color: $primary-yellow;
+        fill: $text;
+    }
+
+    &.article .header>svg {
+        padding: 10px;
+        border-radius: 50%;
+        background-color: $background;
+        fill: $dark-gray;
+    }
+
+    .points {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        >svg {
+            fill: $primary-yellow;
+        }
+    }
+}

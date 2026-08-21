@@ -1,0 +1,44 @@
+.container {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    position: relative;
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        backdrop-filter: blur(0px);
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 102;
+        pointer-events: none;
+        transition: backdrop-filter 0.2s linear, background-color 0.2s linear;
+    }
+
+    &.focus {
+        pointer-events: none;
+
+        .article-card {
+            pointer-events: none !important;
+        }
+
+        &::before {
+            backdrop-filter: blur(3px);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+
+main {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+}

@@ -1,0 +1,1 @@
+export { fetchQuizzes } from "./fetchQuizzes"

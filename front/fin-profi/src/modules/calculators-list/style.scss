@@ -1,0 +1,25 @@
+@use '../../constants/colors.scss' as *;
+
+.calc-list {
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &-card {
+        padding: 20px;
+        border-radius: 24px;
+        background-color: $surface-light;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+
+        .calculator-icon {
+            margin-bottom: 12px;
+        }
+
+        &:has(.active) {
+            background-color: $primary-yellow;
+        }
+    }
+}

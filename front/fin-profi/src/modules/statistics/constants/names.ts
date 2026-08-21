@@ -1,0 +1,1 @@
+export const FETCH_STATISTICS_KEY = ["fetchStatistics"]

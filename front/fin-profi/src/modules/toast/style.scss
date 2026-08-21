@@ -1,0 +1,75 @@
+@use "../../constants/colors.scss" as *;
+
+.toast-group,
+.confirm-toast {
+    position: absolute;
+    left: calc(50% - 200px);
+    top: 12px;
+}
+
+.toast {
+    height: 42px;
+    cursor: pointer;
+    position: absolute;
+    padding: 10px 20px;
+    border-radius: 15px;
+}
+
+.toast,
+.confirm-toast {
+    width: 400px;
+    background-color: $text;
+    color: $surface-white;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.toast-collapse {
+    padding: 4px 8px;
+    background-color: $text;
+    border-radius: 15px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.confirm-toast {
+    min-height: 42px;
+    padding: 12px 40px;
+    margin-bottom: 5px;
+    border-radius: 25px;
+    z-index: 103;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .divider {
+        height: 1px;
+        background-color: $dark-gray;
+    }
+
+    &-button {
+        padding: 2px 15px;
+        cursor: pointer;
+        border-radius: 20px;
+        width: 120px;
+
+        &.confirm {
+            background-color: $text;
+            color: $surface-white;
+            border: 1px solid $surface-white;
+        }
+
+        &.cancel {
+            background-color: $primary-yellow;
+            color: $text;
+            border: 1px solid $primary-yellow;
+        }
+    }
+
+    &-button-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+    }
+}

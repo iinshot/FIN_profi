@@ -64,9 +64,7 @@ async def start_quiz(id_quiz: int, user: User = Depends(get_current_user), db: A
     if(not quiz):
         raise HTTPException(status_code=404, detail=f"Quiz {id_quiz} not found")
     user_quiz = await db.get(UserQuiz, (user.id_user, id_quiz))
-    if(user_quiz):
-        user_quiz.is_completed = False
-    else:
+    if(not user_quiz):
         user_quiz = UserQuiz(id_user = user.id_user, id_quiz = id_quiz)
         db.add(user_quiz)
     stmt_qq = delete(UserQuizAnswer).where(UserQuizAnswer.id_user == user.id_user, UserQuizAnswer.id_quiz == id_quiz)
@@ -91,8 +89,6 @@ async def answer_question(
     user_quiz = await db.get(UserQuiz, (user.id_user, id_quiz))
     if(not user_quiz):
         raise HTTPException(status_code=400, detail=f"Quiz {id_quiz} has not been started")
-    if(user_quiz.is_completed):
-        raise HTTPException(status_code=400, detail=f"Quiz {id_quiz} has already been completed")
     user_quiz_answer = await db.get(UserQuizAnswer, (user.id_user, id_quiz, id_answer))
     if(user_quiz_answer):
         raise HTTPException(status_code=400, detail=f"Answer {id_answer} for quiz {id_quiz} has already been given")
@@ -131,8 +127,6 @@ async def get_next_question(
     user_quiz = await db.get(UserQuiz, (user.id_user, id_quiz))
     if(not user_quiz):
         raise HTTPException(status_code=400, detail=f"Quiz {id_quiz} has not been started")
-    if(user_quiz.is_completed):
-        raise HTTPException(status_code=400, detail=f"Quiz {id_quiz} has already been completed")
     stmt_qq = select(QuizQuestion).where(QuizQuestion.id_quiz == id_quiz).options(
         selectinload(QuizQuestion.question)
         .selectinload(Question.answers)
@@ -153,7 +147,7 @@ async def get_next_question(
         result = await db.execute(stmt)
         user_quiz_answers = result.scalars().all()
         if(len(user_quiz_answers)==0):
-            return {question}
+            return question
     return await end_quiz(id_quiz, user, db)
 
 @router.post("/end_quiz/{id_quiz}")
@@ -168,8 +162,6 @@ async def end_quiz(
     user_quiz = await db.get(UserQuiz, (user.id_user, id_quiz))
     if(not user_quiz):
         raise HTTPException(status_code=400, detail=f"Quiz {id_quiz} has not been started")
-    if(user_quiz.is_completed):
-        raise HTTPException(status_code=400, detail=f"Quiz {id_quiz} has already been completed")
     results = {"right": [], "wrong": []}
     stmt_qq = select(QuizQuestion).where(QuizQuestion.id_quiz == id_quiz).options(
         selectinload(QuizQuestion.question)
@@ -211,7 +203,6 @@ async def end_quiz(
                 result = await db.execute(stmt)
                 correct_answers = result.scalars().all()
                 results["wrong"].append({"question": question, "given_answers": given_answers, "correct_answers": correct_answers})
-    user_quiz.is_completed = True
-    user.points += len(results["right"]) * 10;
+    if len(results["wrong"]) == 0: user_quiz.is_completed = True
     await db.commit()
     return results

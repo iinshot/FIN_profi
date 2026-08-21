@@ -1,0 +1,1 @@
+export { QuizzesProgress } from "./components/QuizzesProgress"
