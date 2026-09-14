@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 import jwt
 from jwt.exceptions import InvalidTokenError
 from db.session import get_db
-from crud.user import get_user_by_email
+from crud.user import get_user
 
 load_dotenv()
 SECRET_KEY = os.environ.get("SECRET_KEY", "8e89816372df3a00951701a1a3fa4a0d0d4463fe0c511177253be2100d8c8150")
@@ -37,9 +37,10 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: As
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email = payload.get("sub")
-        if email is None or (payload.get("type") != "access"):
-            raise credentials_exception    
-        return await get_user_by_email(db, email)
+        # email = payload.get("sub")
+        # if email is None or (payload.get("type") != "access"):
+        #     raise credentials_exception
+        id = payload.get("id_user")    
+        return await get_user(db, id)
     except InvalidTokenError:
         raise credentials_exception

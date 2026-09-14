@@ -1,0 +1,1 @@
+export const FETCH_RATING_KEY = ["fetchRating"]

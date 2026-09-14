@@ -1,0 +1,123 @@
+@use '../../constants/colors.scss' as *;
+
+section.module {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+
+    .header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .info {
+            max-width: 80%;
+
+            .head {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 10px;
+
+                &:has(.active) {
+                    .label {
+                        color: $dark-yellow;
+                    }
+                }
+
+                &:has(.inactive) {
+                    .label {
+                        color: $dark-gray;
+                    }
+                }
+            }
+        }
+
+        .module-progress {
+            width: 128px;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            &:has(.skeleton) {
+                align-items: flex-end;
+            }
+
+            .progress-bar {
+                background-color: $surface-light;
+            }
+        }
+    }
+
+    .divider {
+        height: 2px;
+        background-color: $surface-light;
+    }
+
+    .module-body {
+        position: relative;
+
+        >span {
+            display: inline-block;
+            color: $mid-gray;
+            margin-bottom: 12px;
+        }
+
+        .article-cards {
+            display: flex;
+            flex-direction: column;
+            padding: 0 200px;
+        }
+
+        >svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.article-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    padding: 10px;
+    border-radius: 999px;
+    width: min-content;
+
+    position: relative;
+    z-index: 100;
+
+    transition: all 0.3s linear;
+
+    &:not(:last-child) {
+        margin-bottom: -30px;
+    }
+
+    &:hover {
+        background-color: $text;
+        color: $surface-light;
+        z-index: 101;
+
+        .expand-button {
+            opacity: 0;
+        }
+    }
+
+    .expand-button {
+        width: fit-content;
+        position: relative;
+    }
+
+    h4 {
+        padding: 0 20px;
+        max-width: 100%;
+        text-align: center;
+    }
+}

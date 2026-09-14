@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
-from crud import user as user_crud
+from sqlalchemy import select, func
+from crud import user as user_crud, article as article_crud
 from db.session import get_db
 from typing import Optional
 from auth.dependencies import get_current_user
@@ -57,7 +57,7 @@ async def get_total_progress(
     stmt = select(UserArticle).where(UserArticle.id_user == user.id_user)
     result = await db.execute(stmt)
     user_articles = result.scalars().all()
-    return {"articles": [user_articles]}
+    return user_articles
 
 @router.post("/set_progress/{id_article}")
 async def set_progress(
@@ -67,7 +67,7 @@ async def set_progress(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
-    article = await user_crud.get_article(db, id_article=id_article)
+    article = await article_crud.get_article(db, id_article=id_article)
     if not article:
         raise HTTPException(status_code=404, detail=f"Article {id_article} not found")
     
@@ -78,6 +78,7 @@ async def set_progress(
     
     if last_checkpoint: user_article.last_checkpoint = last_checkpoint
     if is_read: user_article.is_read = is_read
+    if last_checkpoint != 100: user.id_current_article = id_article
     await db.commit()
     return {}
 
@@ -95,6 +96,8 @@ async def get_progress(
 
 @router.get("/{id_user}/rating")
 async def get_rating(id_user: int, db: AsyncSession = Depends(get_db)):
+    all_users = await db.execute(select(func.count()).select_from(User))
+
     user = await user_crud.get_user(db, id_user=id_user)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -103,9 +106,15 @@ async def get_rating(id_user: int, db: AsyncSession = Depends(get_db)):
     top8 = top8[:8]
 
     if any(u.id_user == id_user for u in top8):
-        return top8
+        return {
+            "count": all_users.scalar(),
+            "list": top8
+        }
 
-    return await user_crud.get_users_above(db, points=user.points)
+    return {
+        "count": all_users.scalar(),
+        "list": await user_crud.get_users_above(db, points=user.points)
+    }
 
 @router.get("/{id_user}/statistics")
 async def get_user_progress(id_user: int, db: AsyncSession = Depends(get_db)):
@@ -123,6 +132,7 @@ async def update_user(
         phone: Optional[str] = None,
         about: Optional[str] = None,
         email: Optional[str] = None,
+        points: Optional[int] = None,
         db: AsyncSession = Depends(get_db)
 ):
     kwargs = {}
@@ -138,6 +148,8 @@ async def update_user(
         kwargs["about"] = about
     if email is not None:
         kwargs["email"] = email
+    if points is not None:
+        kwargs["points"] = points
 
     if not kwargs:
         raise HTTPException(status_code=400, detail="No fields to update")

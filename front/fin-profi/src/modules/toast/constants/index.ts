@@ -1,0 +1,1 @@
+export { WIDTH, HEIGHT, GAP } from "./names"

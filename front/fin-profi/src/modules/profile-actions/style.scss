@@ -1,0 +1,41 @@
+@use "../../constants/colors.scss" as *;
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    svg {
+        fill: $background;
+    }
+
+    .user-credentials {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+
+        input {
+            padding: 4px 8px;
+            border-radius: 10px;
+            background-color: $surface-light;
+            color: $text;
+            width: max-content;
+
+            transition: all 0.05s linear;
+
+            &:read-only {
+                background-color: transparent;
+            }
+
+            &[name="email"]:read-only {
+                color: $mid-gray;
+            }
+        }
+    }
+
+    .button-group svg {
+        fill: $text;
+    }
+}

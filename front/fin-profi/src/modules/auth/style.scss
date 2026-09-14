@@ -1,0 +1,89 @@
+@use "../../constants/colors.scss" as *;
+
+.auth-section {
+    flex-direction: column;
+    width: 500px;
+    box-sizing: border-box;
+}
+
+.auth-layout {
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 2px solid $surface-light;
+
+    .expand-button {
+        position: absolute;
+        left: 0;
+    }
+}
+
+.login,
+.register {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin: 28px 0;
+
+    .head {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .body {
+            color: $mid-gray;
+        }
+    }
+
+    #login-form,
+    #register-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .button {
+            margin: 0 auto;
+        }
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .solid {
+            height: 2px;
+            flex: 1;
+            background-color: $surface-light;
+        }
+
+        .label {
+            color: $mid-gray;
+        }
+    }
+
+    .suggestion {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        .body:first-child {
+            color: $mid-gray;
+        }
+
+        .link {
+            color: $text;
+            text-decoration: underline;
+        }
+    }
+}

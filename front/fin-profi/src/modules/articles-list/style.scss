@@ -1,0 +1,117 @@
+@use '../../constants/colors.scss' as *;
+
+.article-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    >svg {
+        padding: 10px;
+        border-radius: 12px;
+        background-color: $surface-light;
+        fill: $mid-gray;
+    }
+
+    >input {
+        width: 100%;
+        color: $text;
+
+        &::placeholder {
+            color: $mid-gray;
+        }
+    }
+}
+
+.articles-list {
+    overflow: hidden;
+    max-height: 100%;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow: auto;
+    }
+
+    .module-node {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        >.title {
+            padding-left: 16px;
+            box-sizing: border-box;
+            position: relative;
+            color: $mid-gray;
+
+            &::before {
+                content: '';
+                display: block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: $mid-gray;
+                position: absolute;
+                left: 0;
+                top: calc(50% - 4px);
+            }
+        }
+
+        &.active {
+            >.title {
+                color: $text;
+
+                &::before {
+                    background-color: $primary-yellow;
+                }
+            }
+
+        }
+    }
+
+    .article-list-node {
+        padding: 10px 12px;
+        border-radius: 12px;
+        background-color: $surface-light;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+
+        &-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: $surface-white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        >.title {
+            flex: 1;
+        }
+
+        .point-progress {
+            width: 14px;
+            height: 14px;
+
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            >svg {
+                fill: $dark-yellow;
+                width: 14px;
+                height: 14px;
+                opacity: 0;
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,1 @@
+export { parseToken } from './parseToken'

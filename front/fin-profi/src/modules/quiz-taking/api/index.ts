@@ -1,0 +1,5 @@
+export { completeQuiz } from "./completeQuiz"
+export { fetchQuestion } from "./fetchQuestion"
+export { fetchQuiz } from "./fetchQuiz"
+export { postAnswer } from "./postAnswer"
+export { startQuiz } from "./startQuiz"

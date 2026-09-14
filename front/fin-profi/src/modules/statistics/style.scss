@@ -1,0 +1,52 @@
+@use "../../constants/colors.scss" as *;
+
+.statistics {
+    background-color: transparent;
+    gap: 20px;
+
+    section {
+        flex: 1;
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            height: 100%;
+
+            .divider {
+                height: 1px;
+                width: 100%;
+                border-bottom: 1px solid $surface-light;
+            }
+
+            .row {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                color: $text;
+            }
+        }
+
+        &.dark .content {
+            >.progress {
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
+            }
+
+            .progress {
+                flex: 1;
+            }
+
+            .divider {
+                border-bottom: 1px solid $dark-gray;
+                opacity: 0.25;
+            }
+
+            .row {
+                color: $surface-white;
+            }
+        }
+    }
+}

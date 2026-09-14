@@ -1,0 +1,55 @@
+@use '../../constants/colors.scss' as *;
+
+.contents {
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &-header {
+        color: $mid-gray;
+        display: block;
+        padding: 10px 12px 10px 28px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s linear;
+        position: relative;
+        font-weight: 500;
+        line-height: 1.5;
+        transform: scale(0.99);
+
+        &::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            background-color: $mid-gray;
+            left: 12px;
+            top: calc(50% - 3px);
+            transition: background-color 0.2s linear;
+        }
+
+        &.card-header {
+            color: $text;
+            background-color: $primary-yellow;
+
+            &::before {
+                background-color: $text;
+            }
+        }
+
+        &:hover:not(.card-header) {
+            background-color: $surface-light;
+            color: $dark-gray;
+            transform: scale(1);
+
+            &::before {
+                background-color: $dark-gray;
+            }
+        }
+    }
+
+}

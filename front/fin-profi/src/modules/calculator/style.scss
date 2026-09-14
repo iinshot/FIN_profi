@@ -1,0 +1,586 @@
+@use "../../constants/colors.scss" as *;
+
+section.calculator {
+    flex-direction: column;
+    gap: 28px;
+
+    .calculator-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .calculator-form {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+
+        &-inputs {
+            display: flex;
+            gap: 40px;
+        }
+
+        .main-inputs {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .side-inputs {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+.calculator-icon {
+    border-radius: 50%;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    svg {
+        transition: all 0.3s ease;
+    }
+
+    &.primary {
+        background-color: $primary-yellow;
+
+        svg {
+            fill: $text;
+        }
+    }
+
+    &.active {
+        background-color: $text;
+
+        svg {
+            fill: $primary-yellow;
+        }
+    }
+
+    &.inactive {
+        background-color: $background;
+
+        svg {
+            fill: $text;
+        }
+    }
+}
+
+.additional-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .checkbox-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid $background;
+            cursor: pointer;
+        }
+
+        &:has(input:checked) {
+            .checkbox {
+                border: 2px solid $primary-yellow;
+                background-color: $primary-yellow;
+            }
+
+            svg {
+                fill: $text;
+            }
+        }
+    }
+}
+
+.number-input {
+    display: flex;
+
+    label {
+        display: block;
+        flex: 2;
+        min-width: 0;
+
+        div {
+            width: min-content;
+        }
+    }
+
+    .input-wrapper {
+        flex: 3;
+        min-width: 0;
+        position: relative;
+
+        input {
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            border-radius: 20px;
+            background-color: $surface-light;
+
+            text-align: center;
+
+            box-sizing: border-box;
+            padding: 0 40px 0 10px;
+        }
+
+        &::after {
+            content: '';
+            top: 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            position: absolute;
+            color: $text;
+        }
+    }
+
+    &.large {
+        .input-wrapper::after {
+            right: 15px;
+            content: '₽';
+
+            font: {
+                size: 24px;
+                weight: 500;
+            }
+
+            line-height: 0.9;
+        }
+    }
+
+    &.small {
+        gap: 10px;
+
+        label {
+            flex: initial;
+
+            div {
+                width: auto;
+            }
+        }
+
+        .input-wrapper {
+            flex: initial;
+
+            input {
+                padding: 0 30px 0 20px;
+                border-radius: 8px;
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
+            }
+
+            &:has(:disabled)::after {
+                color: $mid-gray;
+                cursor: not-allowed;
+            }
+
+            &::after {
+                right: 15px;
+                content: '%';
+
+                font: {
+                    size: 12px;
+                    weight: 500;
+                }
+
+                line-height: 1.3;
+            }
+        }
+    }
+}
+
+.capitalization {
+    position: relative;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    h2 {
+        width: 100%;
+    }
+
+    >label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background-color: $surface-light;
+        border-radius: 40px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        svg {
+            fill: $background;
+            transition: fill 0.2s ease;
+            margin-bottom: 2px;
+        }
+
+        .label {
+            color: $mid-gray;
+            transition: color 0.2s ease;
+        }
+
+        &:has(:checked) {
+            background-color: $primary-yellow;
+
+            svg {
+                fill: $text;
+            }
+
+            .label {
+                color: $text;
+            }
+        }
+    }
+}
+
+.investment-method {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+
+    &::after {
+        content: '';
+        display: block;
+        height: 32px;
+        width: 100%;
+    }
+
+    .multiselect-input {
+        width: max-content;
+
+        position: absolute;
+        top: calc(100% - 32px);
+        left: 0;
+        z-index: 10;
+
+        overflow: hidden;
+        border-radius: 16px;
+        background-color: $surface-light;
+        height: 96px;
+        transition: height 0.2s ease-in;
+
+        label {
+            display: flex;
+            padding-left: 16px;
+            padding-right: 42px;
+            align-items: center;
+            height: 32px;
+            cursor: pointer;
+
+            &:has(:checked) {
+                background-color: $primary-yellow;
+            }
+
+            &:nth-child(1) {
+                transition: border-radius 0.2s ease;
+                position: relative;
+                z-index: 10;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+            }
+
+            &:nth-child(2) {
+                position: relative;
+                z-index: 9;
+                top: 0;
+                transition: top 0.2s ease-in;
+            }
+
+            &:nth-child(3) {
+                position: relative;
+                z-index: 8;
+                top: 0;
+                transition: top 0.2s ease-in;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }
+        }
+
+        svg {
+            fill: $text;
+            position: absolute;
+            z-index: inherit;
+            right: 16px;
+            top: 11px;
+            transition: transform 0.2s ease;
+            transform: scaleY(-1);
+            cursor: pointer;
+        }
+
+        &.collapsed {
+            height: 32px;
+
+            label {
+                &:nth-child(1) {
+                    border-radius: 20px;
+                }
+
+                &:nth-child(2) {
+                    top: -32px;
+                }
+
+                &:nth-child(3) {
+                    top: -64px;
+                }
+            }
+
+
+            svg {
+                transform: scaleY(1);
+            }
+        }
+    }
+}
+
+div[style*="overflow: hidden"]:has(.multiselect-input:not(.collapsed)) {
+    overflow: visible !important;
+}
+
+.capitalization input,
+.additional-settings .checkbox-input>input,
+.investment-method input,
+.period-switcher input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    clip-path: inset(100%);
+}
+
+.annual-rate,
+.period {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        >span {
+            padding: 4px 12px;
+            border-radius: 40px;
+            background-color: $primary-yellow;
+        }
+    }
+
+    &-label-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .range-input {
+        input {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            margin: 0;
+            background: transparent;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+
+            &:focus,
+            &:hover,
+            &:active {
+                outline: none;
+            }
+
+            &::-webkit-slider-runnable-track {
+                box-sizing: border-box;
+                height: 8px;
+                border-radius: 4px;
+
+                background: linear-gradient(to right, $primary-yellow var(--value, 50%), $background var(--value, 50%));
+            }
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 20px;
+                height: 20px;
+                margin-top: -6px;
+
+                border: 2px solid $surface-white;
+                border-radius: 50%;
+                background-color: $text;
+
+                box-shadow: none;
+                cursor: pointer;
+            }
+
+            &::-moz-range-track {
+                box-sizing: border-box;
+                height: 8px;
+                border-radius: 4px;
+                background-color: $background;
+            }
+
+            &::-moz-range-progress {
+                height: 8px;
+                border-radius: 4px;
+                background-color: $primary-yellow;
+            }
+
+            &::-moz-range-thumb {
+                width: 16px;
+                height: 16px;
+                margin-top: 0;
+                border: 2px solid $surface-white;
+                border-radius: 50%;
+                background-color: $text;
+
+                box-shadow: none;
+                cursor: pointer;
+            }
+
+            &::-moz-focus-outer {
+                border: 0;
+            }
+        }
+
+        .edges {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    &-switcher {
+        border-radius: 30px;
+        background-color: $surface-light;
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 8;
+        box-sizing: border-box;
+
+        label {
+            padding: 9px 12px;
+            color: $dark-gray;
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        label:has(:checked) {
+            color: $text;
+        }
+
+        .floating-background {
+            position: absolute;
+            z-index: 9;
+            height: 100%;
+            border-radius: 30px;
+            background-color: $primary-yellow;
+        }
+    }
+}
+
+.cup-icon {
+    border-radius: 50%;
+    display: flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary-yellow;
+
+    svg {
+        fill: $text;
+    }
+}
+
+.calculation-results {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    height: fit-content;
+    padding: 28px 0;
+
+    &-wrapper {
+        will-change: height;
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    &-card {
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 24px;
+        background-color: $surface-light;
+
+        &-main {
+            padding: 20px;
+            border-radius: 24px;
+            background-color: $text;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &-group {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                color: $surface-white;
+            }
+
+            .digits {
+                color: $primary-yellow;
+            }
+        }
+
+        &-entry {
+            padding: 12px 0;
+            margin: 0 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span:first-child {
+                color: $dark-gray;
+            }
+
+            &:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 1px;
+                background-color: $background;
+            }
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+    }
+}

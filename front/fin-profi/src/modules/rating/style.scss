@@ -1,0 +1,141 @@
+@use "../../constants/colors.scss" as *;
+
+.next-rank .content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user {
+            align-items: end;
+        }
+    }
+
+    .progress-bar {
+        background-color: $background;
+    }
+}
+
+.rating {
+    min-height: 0;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        overflow: auto;
+    }
+
+    .rank-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 4px;
+            gap: 8px;
+
+            .dashed-line {
+                flex: 1;
+                height: 1px;
+                border-top: 1px $background dashed;
+            }
+        }
+    }
+
+    .rank-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: center;
+    }
+}
+
+.rank-card {
+    padding: 10px 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background-color: $surface-light;
+    border-radius: 14px;
+
+    .rank-number {
+        color: $mid-gray;
+    }
+
+    svg {
+        fill: $mid-gray;
+    }
+
+    .user-data {
+        display: flex;
+
+        flex: 1 {
+            direction: column;
+        }
+
+        .username {
+            color: $text;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .skeleton:last-child,
+        .skeleton:first-child {
+            margin: {
+                top: 2px;
+                bottom: 2px;
+            }
+        }
+    }
+
+    &.leader {
+        background-color: $soft-yellow;
+
+        .rank-number {
+            color: $dark-yellow;
+        }
+
+        svg {
+            fill: $dark-yellow;
+        }
+    }
+
+    &.current-user {
+        background-color: $text;
+
+        .rank-number {
+            color: $primary-yellow;
+        }
+
+        svg {
+            fill: $primary-yellow;
+        }
+
+        .user-data .username {
+            color: $surface-white;
+
+            &:hover {
+                text-decoration: none;
+                cursor: default;
+            }
+        }
+    }
+}

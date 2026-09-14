@@ -1,0 +1,34 @@
+@use '../../constants/colors.scss' as *;
+
+section.quizzes-progress {
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .quizzes-progress-statistics {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+
+        &-card {
+            background-color: $surface-light;
+            border-radius: 16px;
+            padding: 12px;
+
+            h3,
+            div {
+                width: 50%;
+                display: inline-block;
+                text-align: center;
+            }
+
+            div {
+                color: $dark-gray;
+            }
+        }
+    }
+}
